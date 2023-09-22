@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       registeredDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       createdAt: {
         allowNull: false,

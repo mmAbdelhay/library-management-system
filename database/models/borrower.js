@@ -1,5 +1,5 @@
 'use strict';
-const {Model} = require('sequelize');
+const {Model, Sequelize} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
     class Borrower extends Model {
@@ -22,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
             },
         },
         password: DataTypes.STRING,
-        registeredDate: DataTypes.DATE
+        registeredDate: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        }
     }, {
         sequelize,
         modelName: 'Borrower',

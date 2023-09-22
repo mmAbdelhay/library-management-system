@@ -19,7 +19,7 @@ module.exports.store = async (req, res) => {
     const validation = new Validator(req.body, createBookRules);
     if (validation.fails()) return res.status(402).json(validation.errors.all());
 
-    const data = await BookRepository.insert(req.body);
+    const data = await BookRepository.insert(validation.input);
     if (!data) return res.status(500).json({message: "Cannot insert Book"})
     return res.status(201).json({message: "Book created Successfully", data: data});
 };
@@ -32,7 +32,7 @@ module.exports.update = async (req, res) => {
 
     const data = await BookRepository.update(
         await BookRepository.findBy({id: req.params.id}),
-        req.body
+        validation.input
     );
     return res.status(201).json({message: "Book updated Successfully", data: data});
 };
