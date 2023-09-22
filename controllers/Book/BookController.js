@@ -7,6 +7,10 @@ module.exports.index = async (req, res) => {
     return res.status(200).json({data: await BookRepository.findAll()});
 };
 
+module.exports.search = async (req, res) => {
+    return res.status(200).json({data: await BookRepository.searchBooks(req.query.searchQuery)});
+};
+
 module.exports.show = async (req, res) => {
     return res.status(200).json({data: await BookRepository.findBy({id: req.params.id})});
 };

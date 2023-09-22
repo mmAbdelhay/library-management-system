@@ -1,5 +1,6 @@
 const db = require("../database/models/index");
 const logger = require("../services/logger");
+const {Sequelize} = require("sequelize");
 
 module.exports.insert = async (data) => {
     try {
@@ -23,34 +24,63 @@ module.exports.findBy = async (where, attributes = null) => {
     }
 };
 
- module.exports.update = async (Book, updatedData) => {
-   try {
-     return await Book.update(updatedData)
-   } catch (err) {
-      logger.error("Database update client info failed err: ", err);
-      return false;
-   }
+module.exports.update = async (Book, updatedData) => {
+    try {
+        return await Book.update(updatedData)
+    } catch (err) {
+        logger.error("Database update client info failed err: ", err);
+        return false;
+    }
 };
 
 module.exports.destroy = async (item_id) => {
-   try {
-      return await db.Book.destroy({
+    try {
+        return await db.Book.destroy({
             where: {
-               id: item_id,
+                id: item_id,
             },
             individualHooks: true,
-      });
-   } catch (err) {
-      logger.error("Database item Destruction failed err: ", err);
-      return false;
-   }
+        });
+    } catch (err) {
+        logger.error("Database item Destruction failed err: ", err);
+        return false;
+    }
 };
 
 module.exports.findAll = async () => {
-   try {
-      return await db.Book.findAll();
-   } catch (err) {
-      logger.error("Database selection failed err: ", err);
-      return false;
-   }
+    try {
+        return await db.Book.findAll();
+    } catch (err) {
+        logger.error("Database selection failed err: ", err);
+        return false;
+    }
+};
+
+module.exports.searchBooks = async (searchQuery) => {
+    try {
+        return await db.Book.findAll({
+            where: {
+                [Sequelize.Op.or]: [
+                    {
+                        title: {
+                            [Sequelize.Op.like]: `%${searchQuery}%`,
+                        },
+                    },
+                    {
+                        author: {
+                            [Sequelize.Op.like]: `%${searchQuery}%`,
+                        },
+                    },
+                    {
+                        ISBN: {
+                            [Sequelize.Op.like]: `%${searchQuery}%`,
+                        },
+                    },
+                ],
+            },
+        });
+    } catch (err) {
+        logger.error("Database selection failed err: ", err);
+        return false;
+    }
 };
