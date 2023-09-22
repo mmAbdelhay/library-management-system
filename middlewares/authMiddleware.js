@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 module.exports.authMiddleware = (req, res, next) => {
-    const excludedRoutes = ['/auth/login', '/auth/register'];
+    const excludedRoutes = ['/auth/login', '/auth/register',
+        // exclude these two routes just to ease the testing from the browser
+        '/export/borrowing-processes', '/export/borrowing-processes/overdue'
+    ];
     if (req && !excludedRoutes.includes(req.path)) {
         const userInfo = jwt.decode(req.headers.authorization?.split(" ")[1]);
         if (!userInfo) return res.status(403).json({message: "User not authorized"});

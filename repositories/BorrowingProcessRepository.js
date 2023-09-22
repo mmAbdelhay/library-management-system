@@ -70,3 +70,51 @@ module.exports.findAllOverDue = async () => {
         return false;
     }
 };
+
+
+module.exports.findAllLastMonth = async () => {
+    try {
+        const currentDate = new Date();
+        const oneMonthAgo = new Date(currentDate);
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+        return await db.BorrowingProcess.findAll({
+            where: {
+                createdAt: {
+                    [Op.between]: [oneMonthAgo, currentDate],
+                },
+            },
+            include: [
+                {model: db.Book},
+                {model: db.Borrower}
+            ]
+        });
+    } catch (err) {
+        logger.error("Database selection failed err: ", err);
+        return false;
+    }
+};
+
+module.exports.findAllOverdueLastMonth = async () => {
+    try {
+        const currentDate = new Date();
+        const oneMonthAgo = new Date(currentDate);
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+        return await db.BorrowingProcess.findAll({
+            where: {
+                returnDate: {
+                    [Op.lt]: currentDate,
+                    [Op.gte]: oneMonthAgo,
+                },
+            },
+            include: [
+                {model: db.Book},
+                {model: db.Borrower}
+            ]
+        });
+    } catch (err) {
+        logger.error("Database selection failed err: ", err);
+        return false;
+    }
+};

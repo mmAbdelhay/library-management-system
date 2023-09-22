@@ -3,7 +3,6 @@ const BookRepository = require("../../repositories/BookRepository");
 const Validator = require('validatorjs');
 const createBorrowingProcessRules = require("./createBorrowingProcessRules");
 
-
 module.exports.index = async (req, res) => {
     return res.status(200).json({data: await BorrowingProcessRepository.findAll()});
 };

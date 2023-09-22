@@ -1,30 +1,46 @@
-const BookRepository = require("../../repositories/BookRepository");
+const BorrowingProcessRepository = require("../../repositories/BorrowingProcessRepository");
 const ExcelJS = require('exceljs');
 
-module.exports.exportAllBooks = async (req, res) => {
+const columns = ['process id', 'created at', 'return date', 'book title', 'book Author', 'ISBN', 'borrower name', 'borrower email'];
+
+const rows = (borrowingProcess) => {
+    return [borrowingProcess.id, borrowingProcess.createdAt, borrowingProcess.returnDate,
+        borrowingProcess.Book.title, borrowingProcess.Book.author, borrowingProcess.Book.ISBN,
+        borrowingProcess.Borrower.name, borrowingProcess.Borrower.email
+    ]
+}
+
+module.exports.exportBorrowingLastMonth = async (req, res) => {
     try {
-        const books = await BookRepository.findAll();
-
-        // Create a new Excel workbook
+        const borrowingProcesses = await BorrowingProcessRepository.findAllLastMonth();
         const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Books');
-
-        // Add headers to the worksheet
-        worksheet.addRow(['Title', 'Author', 'ISBN']); // Add more columns as needed
-
-        // Add book data to the worksheet
-        books.forEach((book) => {
-            worksheet.addRow([book.title, book.author, book.ISBN]); // Add more columns as needed
+        const worksheet = workbook.addWorksheet('borrowing-processes-last-month');
+        worksheet.addRow(columns);
+        borrowingProcesses.forEach((borrowingProcess) => {
+            worksheet.addRow(rows(borrowingProcess));
         });
-
-        // Set response headers for Excel download
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        res.setHeader('Content-Disposition', 'attachment; filename=books.xlsx');
-
-        // Stream the workbook to the response
+        res.setHeader('Content-Disposition', 'attachment; filename=borrowing-processes-last-month.xlsx');
         await workbook.xlsx.write(res);
+        res.end();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
-        // End the response
+module.exports.exportOverdueBorrowingLastMonth = async (req, res) => {
+    try {
+        const borrowingProcesses = await BorrowingProcessRepository.findAllOverdueLastMonth();
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('borrowing-processes-overdue-last-month');
+        worksheet.addRow(columns);
+        borrowingProcesses.forEach((borrowingProcess) => {
+            worksheet.addRow(rows(borrowingProcess));
+        });
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=borrowing-processes-overdue-last-month.xlsx');
+        await workbook.xlsx.write(res);
         res.end();
     } catch (err) {
         console.error(err);
