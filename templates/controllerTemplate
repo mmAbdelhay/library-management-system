@@ -24,6 +24,8 @@ module.exports.update = async (req, res) => {
     const validation = new Validator(req.body, update[model_name]Rules);
     if (validation.fails()) return res.status(402).json(validation.errors.all());
 
+    if (!req.params.id) res.status(404).json({message: "Not found"});
+
     const data =  await [model_name]Repository.update(
         await [model_name]Repository.findBy({id: req.params.id}),
         req.body
@@ -32,6 +34,8 @@ module.exports.update = async (req, res) => {
 };
 
 module.exports.destroy = async (req, res) => {
+    if (!req.params.id) res.status(404).json({message: "Not found"});
+
     await [model_name]Repository.destroy(req.params.id);
     return res.status(204).json({message: "[model_name] deleted Successfully"});
 };

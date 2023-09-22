@@ -10,7 +10,7 @@ module.exports.insert = async (data) => {
     }
 };
 
-module.exports.findBy = async (where, attributes = '*') => {
+module.exports.findBy = async (where, attributes = null) => {
     try {
         const dataRetrieved = await db.Book.findOne({
             where: where,
