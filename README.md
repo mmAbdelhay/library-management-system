@@ -1,11 +1,9 @@
-SERN project is a boilerplate for node express with auth using sequelize
-
-and has its own generator to generate a full crud operations with swagger documentation
-
+steps of the project :
 - clone the repository
-- cp .env.example .env
+- copy .env.example to .env
 - modify the .env
-- npm install
-- npm run migrate
-- npm run generator "play with it" 
-- npm run start:dev
+- `npm run migrate`
+- run `docker-compose up` or `npm install` and `npm run start:dev`
+
+now you can visit the postman collection at `https://documenter.getpostman.com/view/14216802/2s9YCBvVbD` to run the apis
+and also you can visit `http://localhost:8080/admin` to see the generated admin panel

@@ -7,15 +7,3 @@ services:
     ports:
       - '3000:3000'
       - '8080:8080'
-    depends_on:
-      - db
-    environment:
-      DB_HOST: db
-
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: liberary-management-system
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
