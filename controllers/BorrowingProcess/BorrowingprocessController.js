@@ -8,6 +8,10 @@ module.exports.index = async (req, res) => {
     return res.status(200).json({data: await BorrowingProcessRepository.findAll()});
 };
 
+module.exports.overdue = async (req, res) => {
+    return res.status(200).json({data: await BorrowingProcessRepository.findAllOverDue()});
+};
+
 module.exports.checkout = async (req, res) => {
     const validation = new Validator(req.body, createBorrowingProcessRules);
     if (validation.fails()) return res.status(402).json(validation.errors.all());
