@@ -1,0 +1,63 @@
+paths:
+  /books:
+    get:
+      summary: Get a list of books
+      description: Retrieve a list of all books.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+    post:
+      summary: Create a new Book
+      description: Create a new Book with the provided data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+      responses:
+        '201':
+          description: Book created successfully
+          content:
+            application/json:
+
+  /books/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID of the Book to retrieve or update
+    get:
+      summary: Get a Book by ID
+      description: Retrieve a Book by their ID.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+        '404':
+          description: User not found
+    put:
+      summary: Update a Book by ID
+      description: Update a Book's information by their ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+      responses:
+        '200':
+          description: Book updated successfully
+          content:
+            application/json:
+        '404':
+          description: Book not found
+    delete:
+      summary: Delete a Book by ID
+      description: Delete a Book by their ID.
+      responses:
+        '204':
+          description: Book deleted successfully
+        '404':
+          description: Book not found

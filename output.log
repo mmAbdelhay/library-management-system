@@ -1,0 +1,1 @@
+22-09-2023 20:52:51 [logger.js] [error]: Database Insertion failed err:  Incorrect integer value: 'abdelhay' for column `liberary_management_system`.`Books`.`author` at row 1

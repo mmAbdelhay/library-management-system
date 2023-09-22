@@ -1,0 +1,63 @@
+paths:
+  /borrowers:
+    get:
+      summary: Get a list of borrowers
+      description: Retrieve a list of all borrowers.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+    post:
+      summary: Create a new Borrower
+      description: Create a new Borrower with the provided data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+      responses:
+        '201':
+          description: Borrower created successfully
+          content:
+            application/json:
+
+  /borrowers/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID of the Borrower to retrieve or update
+    get:
+      summary: Get a Borrower by ID
+      description: Retrieve a Borrower by their ID.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+        '404':
+          description: User not found
+    put:
+      summary: Update a Borrower by ID
+      description: Update a Borrower's information by their ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+      responses:
+        '200':
+          description: Borrower updated successfully
+          content:
+            application/json:
+        '404':
+          description: Borrower not found
+    delete:
+      summary: Delete a Borrower by ID
+      description: Delete a Borrower by their ID.
+      responses:
+        '204':
+          description: Borrower deleted successfully
+        '404':
+          description: Borrower not found
