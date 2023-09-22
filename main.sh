@@ -90,7 +90,7 @@ generate_crud() {
 
 ############## lets start our main menu #################################
 PS3='What do you think of ?! :: '
-options=("generate crud" "generate controller" "generate repository" "quit")
+options=("generate crud" "generate controller" "generate repository" "generate model" "quit")
 
 
 select opt in "${options[@]}"; do
@@ -103,6 +103,9 @@ select opt in "${options[@]}"; do
 		;;
   "generate repository")
 		generate_repository
+		;;
+  "generate model")
+		generate_model
 		;;
 	"quit")
 		echo "bye (･_･)"

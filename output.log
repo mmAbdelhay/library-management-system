@@ -13,3 +13,6 @@
 22-09-2023 23:15:40 [logger.js] [error]: Database Selection failed err:  The attributes option must be an array of column names or an object
 22-09-2023 23:15:40 [logger.js] [error]: Database Selection failed err:  The attributes option must be an array of column names or an object
 22-09-2023 23:15:40 [logger.js] [error]: Database update client info failed err:  Borrower.update is not a function
+23-09-2023 00:18:15 [logger.js] [error]: Database Insertion failed err:  notNull Violation: BorrowingProcess.returnDate cannot be null
+23-09-2023 00:20:00 [logger.js] [error]: Database Insertion failed err:  this.getDataValue is not a function
+23-09-2023 00:21:25 [logger.js] [error]: Database selection failed err:  Book is not defined
