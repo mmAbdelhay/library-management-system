@@ -1,4 +1,5 @@
 const BorrowerRepository = require("../../repositories/BorrowerRepository");
+const BorrowingProcessRepository = require("../../repositories/BorrowingProcessRepository");
 const Validator = require('validatorjs');
 const createBorrowerRules = require("./createBorrowerRules");
 const updateBorrowerRules = require("./updateBorrowerRules");
@@ -25,5 +26,9 @@ module.exports.destroy = async (req, res) => {
     if (+req.params.id !== req.authUser._id) return res.status(403).json({message: "Not authorized to delete"})
 
     await BorrowerRepository.destroy(req.params.id);
-    return res.status(204).json({message: "Borrower deleted Successfully"});
+    return res.status(200).json({message: "Borrower deleted Successfully"});
+};
+
+module.exports.getAllBorrowedBooks = async (req, res) => {
+    return res.status(200).json({data: await BorrowingProcessRepository.findAll({borrowerId: req.authUser._id})});
 };

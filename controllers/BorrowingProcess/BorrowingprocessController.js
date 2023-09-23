@@ -35,5 +35,5 @@ module.exports.return = async (req, res) => {
     if (!borrowingProcess) return res.status(404).json({message: "Borrowing process not found"});
 
     await BorrowingProcessRepository.destroy(req.params.id);
-    return res.status(204).json({message: "Borrower deleted Successfully"});
+    return res.status(200).json({message: "Borrower deleted Successfully"});
 };

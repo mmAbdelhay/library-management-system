@@ -41,5 +41,5 @@ module.exports.destroy = async (req, res) => {
     if (!req.params.id) res.status(404).json({message: "Not found"});
 
     await BookRepository.destroy(req.params.id);
-    return res.status(204).json({message: "Book deleted Successfully"});
+    return res.status(200).json({message: "Book deleted Successfully"});
 };

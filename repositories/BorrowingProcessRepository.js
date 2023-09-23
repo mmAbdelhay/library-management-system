@@ -38,9 +38,10 @@ module.exports.findBy = async (where, attributes = null) => {
     }
 };
 
-module.exports.findAll = async () => {
+module.exports.findAll = async (where = null) => {
     try {
         return await db.BorrowingProcess.findAll({
+            where: where,
             include: [
                 {model: db.Book},
                 {model: db.Borrower}
