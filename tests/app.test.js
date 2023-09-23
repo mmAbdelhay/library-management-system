@@ -1,9 +1,9 @@
 const chai = require('chai');
 const expect = chai.expect;
 const request = require('supertest');
-const userApp = require('../../server');
-const token = require("../../services/token");
-const db = require("../../database/models/index");
+const userApp = require('../server');
+const token = require("../services/token");
+const db = require("../database/models");
 
 const getToken = async () => {
     const borrower = await db.Borrower.findOne({

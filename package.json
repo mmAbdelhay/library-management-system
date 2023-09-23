@@ -9,7 +9,7 @@
     "generator": "./main.sh",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo:all",
-    "test": "mocha tests/**/*.test.js"
+    "test": "mocha tests/*.test.js"
   },
   "author": "muhammad abdelhay",
   "license": "ISC",
