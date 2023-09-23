@@ -10,3 +10,5 @@ also, you can visit `http://localhost:8080/admin` to see the generated admin pan
 
 database diagram
 ![liberary_management_system.png](liberary_management_system.png)
+
+after adding your first borrower you can run the tests by running `npm run test`
