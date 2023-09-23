@@ -54,3 +54,5 @@ DB.connectToDB().then(() => {
 }).catch(() => {
     console.log(FgRed + "Could not connect to database" + Reset);
 });
+
+module.exports = userApp;
